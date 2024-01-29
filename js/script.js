@@ -113,12 +113,30 @@ function isEqual(array1, array2) {
   }
 
 
-
-
-
 window.onload = function() {
     startHtml();
     tableValue = generateArr();
 }
+
+
+// Modal
+const modal = document.querySelector('.modal');
+const modalCloseButton = modal.querySelector('.modal__close');
+
+const openModal = () =>{
+    modal.classList.add('active');
+    body.classList.add('_lock');
+}
+
+const closeModal = () => {
+    modal.classList.remove('active');
+    body.classList.remove('_lock');
+}
+
+modalCloseButton.addEventListener('click', closeModal);
+
+
+
+openModal();
 
 
