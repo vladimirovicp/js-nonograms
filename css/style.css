@@ -19,3 +19,17 @@
 .table-game{
     margin: 0 auto;
 }
+
+.checked{
+    background-color: black;
+}
+
+.marked{
+    text-align: center;
+    vertical-align: middle;
+}
+.marked::after{
+    content: "\2716";
+    font-size: 2rem;
+    color: red;
+}
