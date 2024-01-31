@@ -99,15 +99,18 @@ body._lock:before{
     opacity: 0.5;
   }
 
+  .modal__container{
+    padding: 3rem 2.5rem 2rem;
+  }
+
   .modal__content{
-    padding: 2rem 2.5rem;
+    
   }
 
   .modal__title{
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.4rem;
     line-height: 100%;
     letter-spacing: 0.4px;
-    text-transform: uppercase;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1rem 0;
   }
