@@ -1,8 +1,8 @@
 
 const body = document.querySelector('body');
 
-const wc = 5; //ширина ячеек
-const hc = 5; //высота ячеек
+const wc = 10; //ширина ячеек
+const hc = 10; //высота ячеек
 const cells = wc + hc; // всего ячеек
 let tableValue = [];
 //console.log(tableValue);
@@ -50,7 +50,7 @@ let modalCloseButton;
                 if(tableValue[j][i] === 1){
                     arrCountRow[indexCountColRow] = arrCountRow[indexCountColRow] ? arrCountRow[indexCountColRow] + 1 : 1;
                 } else{
-                    if(arrCountRow.length !== 0 && tableValue[j][i - 1] !== 0 ){
+                    if(arrCountRow.length !== 0 && tableValue[j - 1][i] !== 0 ){
                         indexCountColRow += 1;
                     }
                 }
@@ -69,22 +69,49 @@ let modalCloseButton;
             for (let j = 0; j <= hc; j++){
                 const createCell =  document.createElement("td");
 
-                if( i !== 0){
-                    createCell.classList.add('cell');
-                    createCell.dataset.col = i;
-                    createCell.dataset.row = j;
-                } else{
+                if ( i === 0 && j===0){
+                    createCell.textContent = 'n/n'
+                } else {
+                    if( i === 0){
+                        createCell.dataset.col = 0;
+                        createCell.dataset.row = 0;
+                        //createCell.textContent = 'top';
 
-                    if (i !== wc){
-                        console.log(rowInfo[j])
-                        //createCell.innerHTML= rowInfo[j].join("<br>");
+                        //console.log(rowInfo[j - 1].join(","));
+
+                        //reateCell.textContent = rowInfo[j - 1].join(",");
+                        reateCell.textContent = '123'
+
+                    } else {
+
+                        createCell.classList.add('cell');
+                        createCell.dataset.col = i;
+                        createCell.dataset.row = j;
                     }
-                    //
-                    //
                 }
 
+                // if( (i !== 0) && (j !== 0)){
+
+                //     if( i !== 0){
+                //         createCell.classList.add('cell');
+                //         createCell.dataset.col = i;
+                //         createCell.dataset.row = j;
+                //     } else {
+                //         createCell.classList.add('title');
+                //         createCell.dataset.col = 0;
+                //         createCell.dataset.row = 0;
+
+                //         // if (i !== wc){
+                //         //     console.log(j,rowInfo[j])
+                //         //     createCell.classList.add('cell');
+                //         //     createCell.innerHTML= rowInfo[j].join("<br>");
+                //         // }
+                //     }
+
+                // }
 
                 tr.appendChild(createCell);
+
             }
             tbody.appendChild(tr);
         }
@@ -104,7 +131,6 @@ let modalCloseButton;
 
         controlCreate.appendChild(btnSeeCreate);
         body.append(controlCreate);
-
 }
     const addModal = () =>{
     const modalDiv = document.createElement("div");
