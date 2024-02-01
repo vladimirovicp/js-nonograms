@@ -1,8 +1,8 @@
 
 const body = document.querySelector('body');
 
-const wc = 10; //ширина ячеек
-const hc = 10; //высота ячеек
+const wc = 5; //ширина ячеек
+const hc = 5; //высота ячеек
 const cells = wc + hc; // всего ячеек
 let tableValue = [];
 //console.log(tableValue);
@@ -68,26 +68,32 @@ let modalCloseButton;
             const tr = document.createElement("tr");
             for (let j = 0; j <= hc; j++){
                 const createCell =  document.createElement("td");
-
                 if ( i === 0 && j===0){
-                    createCell.textContent = 'n/n'
+                    createCell.textContent = "";
                 } else {
+
                     if( i === 0){
-                        createCell.dataset.col = 0;
-                        createCell.dataset.row = 0;
-                        //createCell.textContent = 'top';
-
-                        //console.log(rowInfo[j - 1].join(","));
-
-                        //reateCell.textContent = rowInfo[j - 1].join(",");
-                        reateCell.textContent = '123'
-
-                    } else {
-
-                        createCell.classList.add('cell');
+                        createCell.classList.add('row__title');
                         createCell.dataset.col = i;
                         createCell.dataset.row = j;
+                        createCell.innerHTML = rowInfo[j - 1].join("<br>");
+                    } else {
+
+                        if (j === 0){
+                            createCell.classList.add('col__title');
+                            createCell.dataset.col = i;
+                            createCell.dataset.row = j;
+                            createCell.innerHTML = colInfo[i - 1].join(" ");
+                        } else{
+                            createCell.classList.add('cell');
+                            createCell.dataset.col = i;
+                            createCell.dataset.row = j;
+                        }
+
+
                     }
+
+
                 }
 
                 // if( (i !== 0) && (j !== 0)){
@@ -242,14 +248,19 @@ let modalCloseButton;
         tableValue = resArr;
     }
     const comparisonTable = () =>{
+
         const tableGame = document.querySelector(".table-game");
         const cells = tableGame.querySelectorAll(".cell");
         let comparisonArr = Array(wc).fill().map(() => Array(hc).fill(0));
+
+
         cells.forEach( item => {
                 if (item.classList.contains('checked')){
-                    comparisonArr[item.dataset.col][item.dataset.row] = 1;
+                    comparisonArr[item.dataset.col - 1][item.dataset.row - 1] = 1;
                 }
         });
+
+
         if (isEqual(tableValue, comparisonArr)){
             console.log('Победа!')
         }
