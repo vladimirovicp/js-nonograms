@@ -1,8 +1,10 @@
 
 const body = document.querySelector('body');
 
-const wc = 5; //ширина ячеек
-const hc = 5; //высота ячеек
+let wc = 5; //ширина ячеек
+let hc = 5; //высота ячеек
+
+
 const cells = wc + hc; // всего ячеек
 let tableValue = [];
 //console.log(tableValue);
@@ -11,6 +13,9 @@ let modal;
 let modalCloseButton;
 
     const startHtml = () =>{
+
+        body.innerHTML = '';
+
         const main = document.createElement("main");
         main.classList.add('main');
 
@@ -134,8 +139,29 @@ let modalCloseButton;
         const btnSeeCreate = document.createElement("button");
         btnSeeCreate.classList.add('btn__see-result');
         btnSeeCreate.textContent = 'See the result';
-
         controlCreate.appendChild(btnSeeCreate);
+
+        const btnRestartedCreate = document.createElement("button");
+        btnRestartedCreate.classList.add('btn__restarted');
+        btnRestartedCreate.textContent = 'Restarted new game';
+        controlCreate.appendChild(btnRestartedCreate);
+
+        const selectSize = document.createElement("select");
+        selectSize.classList.add('size');
+        selectSize.name = 'size';
+        for (let i = 1; i < 4; i++) {
+            let option = document.createElement("option");
+            option.value = 'size' + i * 5;
+            option.text = 'size ' + i * 5;
+            if( i * 5 === wc) {
+                option.selected = true;
+            }
+            selectSize.appendChild(option);
+        }
+        controlCreate.appendChild(selectSize);
+
+
+
         body.append(controlCreate);
 }
     const addModal = () =>{
@@ -198,6 +224,24 @@ let modalCloseButton;
     const btn = document.querySelector('.btn__see-result');
     btn.addEventListener('click', renderingTable)
 }
+    const clickRestarted = () => {
+        const btn = document.querySelector('.btn__restarted');
+        btn.addEventListener('click', go);
+    }
+    const clickSize = () => {
+        const activities = document.querySelector('.size');
+
+        activities.addEventListener("change", (e) => {
+            if (e.target.value === 'size10') {
+                go(10);
+            }else if(e.target.value === 'size15'){
+                go(15);
+            } else{
+                go();
+            }
+        })
+
+    }
     const renderingTable = () => {
         const cols = tableValue.length;
         const row = tableValue[0].length
@@ -290,10 +334,17 @@ let modalCloseButton;
 
         clickCeil();
         clickSeeResult();
+        clickRestarted();
+        clickSize();
 
     }
 
-    async function go(){
+    async function go(size = 5){
+        if(size){
+            wc = size;
+            hc = size;
+        }
+
         await generateArr(); // генерируем массив
         await creatingSkeleton();
         await logic();
