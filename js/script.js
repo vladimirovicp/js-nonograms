@@ -7,12 +7,12 @@ let hc = 5; //высота ячеек
 
 const cells = wc + hc; // всего ячеек
 let tableValue = [];
-//console.log(tableValue);
+let patternsArr = [];
 
 let modal;
 let modalCloseButton;
 
-    const startHtml = () =>{
+    const startHtml = async () =>{
 
         body.innerHTML = '';
 
@@ -27,11 +27,10 @@ let modalCloseButton;
         table.classList.add('table-game');
         const tbody = document.createElement("tbody");
 
-
         let colInfo = [];
         let rowInfo = [];
 
-        console.log(tableValue)
+        //console.log('tableValue',tableValue)
 
         const cols = tableValue.length;
         const row = tableValue[0].length
@@ -160,7 +159,22 @@ let modalCloseButton;
         }
         controlCreate.appendChild(selectSize);
 
+        const selectParent = document.createElement("select");
+        selectParent.name = 'parent';
+        selectParent.classList.add('parent');
 
+        for (let i = 0; i < 6; i++) {
+            let optionParent = document.createElement("option");
+            if(i === 0){
+                optionParent.value = 'NoParent';
+                optionParent.text = 'No Parent';
+            } else {
+                optionParent.value = 'parent' + i;
+                optionParent.text = 'Parent ' + i;
+            }
+            selectParent.appendChild(optionParent);
+        }
+        controlCreate.appendChild(selectParent);
 
         body.append(controlCreate);
 }
@@ -186,7 +200,6 @@ let modalCloseButton;
     modalDiv.appendChild(modalContainer);
 
     body.appendChild(modalDiv);
-
 
 }
     const clickCeil = () => {
@@ -221,12 +234,14 @@ let modalCloseButton;
         })
 }
     const clickSeeResult = () =>{
-    const btn = document.querySelector('.btn__see-result');
-    btn.addEventListener('click', renderingTable)
+        const btn = document.querySelector('.btn__see-result');
+        btn.addEventListener('click', renderingTable);
 }
     const clickRestarted = () => {
         const btn = document.querySelector('.btn__restarted');
-        btn.addEventListener('click', go);
+        btn.addEventListener('click', function(){
+            go(wc);
+        });
     }
     const clickSize = () => {
         const activities = document.querySelector('.size');
@@ -275,10 +290,11 @@ let modalCloseButton;
         openModal();
 
 }
-    const generateArr = () =>{
+    const generateArr = async (size) =>{
         let arr = [];
         let resArr = [];
-
+        wc = size;
+        hc = size;
         for (let i = 0; i < wc; i++){
             for (let j = 0; j < hc; j++){
                 arr[j] = Math.random() > 0.5 ? 1 : 0;
@@ -290,7 +306,24 @@ let modalCloseButton;
         //console.log(resArr)
 
         tableValue = resArr;
+
+        return resArr;
+
+        //creatingSkeleton();
     }
+    // const generateArr2 = () =>{
+    //     let arr = [];
+    //     let resArr = [];
+    //     for (let i = 0; i < wc; i++){
+    //         for (let j = 0; j < hc; j++){
+    //             arr[j] = Math.random() > 0.5 ? 1 : 0;
+    //         }
+    //         resArr[i] = arr;
+    //         arr = [];
+    //     }
+    //
+    //     return resArr;
+    // }
     const comparisonTable = () =>{
 
         const tableGame = document.querySelector(".table-game");
@@ -306,7 +339,18 @@ let modalCloseButton;
 
 
         if (isEqual(tableValue, comparisonArr)){
+
+
             console.log('Победа!')
+
+            const modalContent = document.querySelector('.modal__content');
+            const h2 = document.createElement('h2');
+            h2.textContent = 'Победа!'
+            modalContent.textContent = '';
+            modalContent.appendChild(h2);
+            openModal();
+
+
         }
 
 
@@ -339,17 +383,38 @@ let modalCloseButton;
 
     }
 
-    async function go(size = 5){
-        if(size){
-            wc = size;
-            hc = size;
-        }
 
-        await generateArr(); // генерируем массив
+    async function go(size = 5){
+        //await getLocalStorage();
+        tableValue = await generateArr(size); // генерируем массив
+        console.log(tableValue);
         await creatingSkeleton();
         await logic();
     }
 
-    go();
+    // function getLocalStorage() {
+    //
+    //     if(wc === 5){
+    //         let patternsLocalStorage = localStorage.getItem("patterns");
+    //
+    //         if(patternsLocalStorage === null){
+    //             for (let i = 0; i < 5; i++){
+    //                 patternsArr[i] = generateArr2();
+    //             }
+    //             localStorage.setItem('patterns', JSON.stringify(patternsArr));
+    //         } else {
+    //             patternsLocalStorage = patternsLocalStorage.split(',');
+    //             for (let i = 0; i < 5; i++){
+    //                 let parent = []
+    //                 for (let j = 0; j < 5; j++){
+    //                     parent[j] = patternsLocalStorage[i * 5 + j];
+    //                 }
+    //                 patternsArr[i] = parent;
+    //             }
+    //         }
+    //     }
+    // }
+
+    go(5);
 
 

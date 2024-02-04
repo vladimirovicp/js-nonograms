@@ -34,6 +34,10 @@ body._lock:before{
     z-index: 10;
 }
 
+h2{
+    font-size: 3rem;
+}
+
 .container-cells{
 
 }
@@ -150,9 +154,9 @@ body._lock:before{
 
   .control{
       margin: 2rem auto;
-      width: 20rem;
+      /*width: 20rem;*/
       display: flex;
-      /*justify-content: space-between;*/
+      justify-content: center;
       gap: 1rem;
   }
 
@@ -211,7 +215,7 @@ body._lock:before{
             width: 1rem;
             height: 1rem;
             border: .05rem solid #000;
-            background-color: #e1e1e1;
+            /*background-color: #e1e1e1;*/
         }
 
         .table-game .cell:nth-child(5n+2) {
