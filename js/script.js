@@ -78,6 +78,8 @@ let modalCloseButton;
 
                     if( i === 0){
                         createCell.classList.add('row__title');
+                        createCell.classList.add('row__title');
+                        createCell.classList.add(`cell-${wc}`);
                         createCell.dataset.col = i;
                         createCell.dataset.row = j;
                         createCell.innerHTML = rowInfo[j - 1].join("<br>");
@@ -85,11 +87,13 @@ let modalCloseButton;
 
                         if (j === 0){
                             createCell.classList.add('col__title');
+                            createCell.classList.add(`cell-${wc}`);
                             createCell.dataset.col = i;
                             createCell.dataset.row = j;
                             createCell.innerHTML = colInfo[i - 1].join(" ");
                         } else{
                             createCell.classList.add('cell');
+                            createCell.classList.add(`cell-${wc}`);
                             createCell.dataset.col = i;
                             createCell.dataset.row = j;
                         }

@@ -5,7 +5,8 @@
 }
 
 html{
-    font-size: 10px;
+    //font-size: 10px;
+    font-size:0.69vw;
 }
 
 body{
@@ -68,6 +69,10 @@ h2{
     border-top: .4rem solid #000;
 }
 
+td{
+    white-space: nowrap;
+}
+
 .row__title{
     text-align: center;
     vertical-align: bottom;
@@ -93,7 +98,7 @@ h2{
 }
 .marked::after{
     content: "\2716";
-    font-size: 2rem;
+    /*font-size: 2rem;*/
     color: red;
 }
 
@@ -169,10 +174,34 @@ h2{
 
 
     @media (min-width: 1024px) {
+        html{
+            font-size: 10px;
+        }
+
         .cell {
             width: 5rem;
             height: 5rem;
         }
+
+        .cell-5{
+            width: 10rem;
+            height: 10rem;
+            font-size: 5rem;
+        }
+
+        .cell-10{
+            width: 6rem;
+            height: 6rem;
+            font-size: 3rem;
+        }
+
+        .cell-15{
+            width: 4rem;
+            height: 4rem;
+            font-size: 2rem;
+        }
+
+
     }
 
     @media (max-width: 1023px) {
@@ -185,25 +214,52 @@ h2{
             height: 2rem;
         }
 
+        .cell-5{
+            width: 12rem;
+            height: 12rem;
+            font-size: 6rem;
+        }
+
+        .cell-10{
+            width: 8rem;
+            height: 8rem;
+            font-size: 5rem;
+        }
+
+        .cell-15{
+            width: 6rem;
+            height: 6rem;
+            font-size: 4rem;
+        }
+
+        /*.cell-5{*/
+        /*    width: 15rem;*/
+        /*    height: 15rem;*/
+        /*}*/
+
+        /*.cell-10{*/
+        /*    width: 6rem;*/
+        /*    height: 6rem;*/
+        /*}*/
+
+        /*.cell-15{*/
+        /*    width: 4rem;*/
+        /*    height: 4rem;*/
+        /*}*/
+
         .table-game .cell:nth-child(5n+2) {
-            border-left: .2rem solid #000;
+            border-left: .8rem solid #000;
         }
 
         .table-game .cell:nth-child(5n + 1) {
-            border-right: .2rem solid #000;
+            border-right: .8rem solid #000;
         }
 
         .table-game tr:nth-child(5n + 1) td {
-            border-bottom: .2rem solid #000;
+            border-bottom: .8rem solid #000;
         }
         .table-game tr:nth-child(5n + 2) td {
-            border-top: .2rem solid #000;
-        }
-
-        .marked::after{
-            content: "\2716";
-            font-size: 1.5rem;
-            color: red;
+            border-top: .8rem solid #000;
         }
     }
 
@@ -215,28 +271,45 @@ h2{
             width: 1rem;
             height: 1rem;
             border: .05rem solid #000;
-            /*background-color: #e1e1e1;*/
+        }
+
+        .cell-5{
+            width: 15rem;
+            height: 15rem;
+            font-size: 8rem;
+        }
+
+        .cell-10{
+            width: 10rem;
+            height: 10rem;
+            font-size: 5rem;
+        }
+
+        .cell-15{
+            width: 7rem;
+            height: 7rem;
+            font-size: 4rem;
         }
 
         .table-game .cell:nth-child(5n+2) {
-            border-left: .2rem solid #000;
+            border-left: 1.2rem solid #000;
         }
 
         .table-game .cell:nth-child(5n + 1) {
-            border-right: .2rem solid #000;
+            border-right: 1.2rem solid #000;
         }
 
         .table-game tr:nth-child(5n + 1) td {
-            border-bottom: .2rem solid #000;
+            border-bottom: 1.2rem solid #000;
         }
         .table-game tr:nth-child(5n + 2) td {
-            border-top: .2rem solid #000;
+            border-top: 1.2rem solid #000;
         }
 
 
-        .marked::after{
-            content: "\2716";
-            font-size: 1rem;
-            color: red;
-        }
+        /*.marked::after{*/
+        /*    content: "\2716";*/
+        /*    font-size: 1rem;*/
+        /*    color: red;*/
+        /*}*/
     }
