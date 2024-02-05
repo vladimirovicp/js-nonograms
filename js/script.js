@@ -8,6 +8,7 @@ let hc = 5; //высота ячеек
 const cells = wc + hc; // всего ячеек
 let tableValue = [];
 let patternsArr = [];
+let currentPatterns = 'NoParent';
 
 let modal;
 let modalCloseButton;
@@ -31,6 +32,10 @@ let modalCloseButton;
         let rowInfo = [];
 
         //console.log('tableValue',tableValue)
+
+        if (currentPatterns !== 'NoParent'){
+            console.log('currentPatterns',currentPatterns);
+        }
 
         const cols = tableValue.length;
         const row = tableValue[0].length
@@ -261,6 +266,33 @@ let modalCloseButton;
         })
 
     }
+    const clickParent = () =>{
+        const activities = document.querySelector('.parent');
+
+        activities.addEventListener("change", (e) => {
+            //console.log(e.target.value)
+            // if (e.target.value === 'size10') {
+            //     go(10);
+            // }else if(e.target.value === 'size15'){
+            //     go(15);
+            // } else{
+            //     go();
+            // }
+
+            switch(e.target.value) {
+                case 'parent1': {
+                    currentPatterns = 'parent1';
+                    localStorage.setItem('currentPatterns', 'parent1');
+                }
+                    break;
+                case 'NoParent': console.log('NoParent')  
+                    break;
+                default: console.log('default')  
+            }
+
+            
+        })
+    }
     const renderingTable = () => {
         const cols = tableValue.length;
         const row = tableValue[0].length
@@ -306,28 +338,9 @@ let modalCloseButton;
             resArr[i] = arr;
             arr = [];
         }
-
-        //console.log(resArr)
-
-        tableValue = resArr;
-
         return resArr;
-
-        //creatingSkeleton();
     }
-    // const generateArr2 = () =>{
-    //     let arr = [];
-    //     let resArr = [];
-    //     for (let i = 0; i < wc; i++){
-    //         for (let j = 0; j < hc; j++){
-    //             arr[j] = Math.random() > 0.5 ? 1 : 0;
-    //         }
-    //         resArr[i] = arr;
-    //         arr = [];
-    //     }
-    //
-    //     return resArr;
-    // }
+
     const comparisonTable = () =>{
 
         const tableGame = document.querySelector(".table-game");
@@ -384,41 +397,45 @@ let modalCloseButton;
         clickSeeResult();
         clickRestarted();
         clickSize();
+        clickParent();
 
     }
 
 
     async function go(size = 5){
-        //await getLocalStorage();
+        await getLocalStorage();
         tableValue = await generateArr(size); // генерируем массив
-        console.log(tableValue);
+        // console.log(tableValue);
         await creatingSkeleton();
         await logic();
     }
 
-    // function getLocalStorage() {
-    //
-    //     if(wc === 5){
-    //         let patternsLocalStorage = localStorage.getItem("patterns");
-    //
-    //         if(patternsLocalStorage === null){
-    //             for (let i = 0; i < 5; i++){
-    //                 patternsArr[i] = generateArr2();
-    //             }
-    //             localStorage.setItem('patterns', JSON.stringify(patternsArr));
-    //         } else {
-    //             patternsLocalStorage = patternsLocalStorage.split(',');
-    //             for (let i = 0; i < 5; i++){
-    //                 let parent = []
-    //                 for (let j = 0; j < 5; j++){
-    //                     parent[j] = patternsLocalStorage[i * 5 + j];
-    //                 }
-    //                 patternsArr[i] = parent;
-    //             }
-    //         }
-    //     }
-    // }
+    const getLocalStorage = async () => {
 
-    go(5);
+        currentPatterns = localStorage.getItem("currentPatterns");
+        if(currentPatterns === null){
+            currentPatterns = 'NoParent';
+            localStorage.setItem('currentPatterns', 'NoParent');
+        }
+
+        if(wc === 5){
+            let patternsLocalStorage = localStorage.getItem("patterns");
+            if(patternsLocalStorage === null){
+
+                for (let i = 0; i < 5; i++){
+                    let newPattern = await generateArr(5);
+                    patternsArr[i] = newPattern;
+                }
+                localStorage.setItem('patterns', JSON.stringify(patternsArr));
+            } else {
+                patternsArr = JSON.parse(patternsLocalStorage);
+            }
+        } else {
+            localStorage.setItem('currentPatterns', 'NoParent');
+            currentPatterns = 'NoParent';
+        }
+    }
+
+    go();
 
 
