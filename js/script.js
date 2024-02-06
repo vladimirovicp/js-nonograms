@@ -33,8 +33,9 @@ let modalCloseButton;
 
         //console.log('tableValue',tableValue)
 
-        if (currentPatterns !== 'NoParent'){
-            console.log('currentPatterns',currentPatterns);
+        if (currentPatterns !== 'NoParent' && wc === 5){
+            const index = currentPatterns.replace('parent','');
+            tableValue = patternsArr[index - 1];
         }
 
         const cols = tableValue.length;
@@ -102,33 +103,8 @@ let modalCloseButton;
                             createCell.dataset.col = i;
                             createCell.dataset.row = j;
                         }
-
-
                     }
-
-
                 }
-
-                // if( (i !== 0) && (j !== 0)){
-
-                //     if( i !== 0){
-                //         createCell.classList.add('cell');
-                //         createCell.dataset.col = i;
-                //         createCell.dataset.row = j;
-                //     } else {
-                //         createCell.classList.add('title');
-                //         createCell.dataset.col = 0;
-                //         createCell.dataset.row = 0;
-
-                //         // if (i !== wc){
-                //         //     console.log(j,rowInfo[j])
-                //         //     createCell.classList.add('cell');
-                //         //     createCell.innerHTML= rowInfo[j].join("<br>");
-                //         // }
-                //     }
-
-                // }
-
                 tr.appendChild(createCell);
 
             }
@@ -172,6 +148,7 @@ let modalCloseButton;
         selectParent.name = 'parent';
         selectParent.classList.add('parent');
 
+        //console.log(currentPatterns)
         for (let i = 0; i < 6; i++) {
             let optionParent = document.createElement("option");
             if(i === 0){
@@ -180,9 +157,16 @@ let modalCloseButton;
             } else {
                 optionParent.value = 'parent' + i;
                 optionParent.text = 'Parent ' + i;
+                if( currentPatterns === 'parent' + i && wc === 5){
+                    optionParent.selected = true;
+                    //console.log('selected')
+                }
             }
             selectParent.appendChild(optionParent);
         }
+
+
+
         controlCreate.appendChild(selectParent);
 
         body.append(controlCreate);
@@ -247,6 +231,8 @@ let modalCloseButton;
         btn.addEventListener('click', renderingTable);
 }
     const clickRestarted = () => {
+        localStorage.setItem('currentPatterns', 'NoParent');
+        currentPatterns = 'NoParent';
         const btn = document.querySelector('.btn__restarted');
         btn.addEventListener('click', function(){
             go(wc);
@@ -270,7 +256,7 @@ let modalCloseButton;
         const activities = document.querySelector('.parent');
 
         activities.addEventListener("change", (e) => {
-            //console.log(e.target.value)
+            console.log(e.target.value)
             // if (e.target.value === 'size10') {
             //     go(10);
             // }else if(e.target.value === 'size15'){
@@ -282,12 +268,45 @@ let modalCloseButton;
             switch(e.target.value) {
                 case 'parent1': {
                     currentPatterns = 'parent1';
+                    //console.log(currentPatterns)
                     localStorage.setItem('currentPatterns', 'parent1');
+                    go();
                 }
                     break;
-                case 'NoParent': console.log('NoParent')  
+                case 'parent2': {
+                    currentPatterns = 'parent2';
+                    //console.log(currentPatterns)
+                    localStorage.setItem('currentPatterns', 'parent2');
+                    go();
+                }
                     break;
-                default: console.log('default')  
+                case 'parent3': {
+                    currentPatterns = 'parent3';
+                    //console.log(currentPatterns)
+                    localStorage.setItem('currentPatterns', 'parent3');
+                    go();
+                }
+                    break;
+                case 'parent4': {
+                    currentPatterns = 'parent4';
+                    //console.log(currentPatterns)
+                    localStorage.setItem('currentPatterns', 'parent4');
+                    go();
+                }
+                    break;
+                case 'parent5': {
+                    currentPatterns = 'parent5';
+                    //console.log(currentPatterns)
+                    localStorage.setItem('currentPatterns', 'parent5');
+                    go();
+                }
+                    break;
+                default: {
+                    //console.log('default');
+                    currentPatterns = 'NoParent';
+                    localStorage.setItem('currentPatterns', 'NoParent');
+                    go();
+                }
             }
 
             
