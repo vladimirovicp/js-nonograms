@@ -164,10 +164,14 @@ let modalCloseButton;
             }
             selectParent.appendChild(optionParent);
         }
-
-
-
         controlCreate.appendChild(selectParent);
+
+
+        const resetTable = document.createElement("button");
+        resetTable.classList.add('btn__reset-table');
+        resetTable.textContent = 'Reset table';
+        controlCreate.appendChild(resetTable);
+
 
         body.append(controlCreate);
 }
@@ -256,15 +260,6 @@ let modalCloseButton;
         const activities = document.querySelector('.parent');
 
         activities.addEventListener("change", (e) => {
-            console.log(e.target.value)
-            // if (e.target.value === 'size10') {
-            //     go(10);
-            // }else if(e.target.value === 'size15'){
-            //     go(15);
-            // } else{
-            //     go();
-            // }
-
             switch(e.target.value) {
                 case 'parent1': {
                     currentPatterns = 'parent1';
@@ -311,6 +306,18 @@ let modalCloseButton;
 
             
         })
+    }
+    const resetTable = () =>{
+        const btn = document.querySelector('.btn__reset-table');
+        btn.addEventListener('click', () => {
+            const tableGame = document.querySelector(".table-game");
+            const cells = tableGame.querySelectorAll(".cell");
+            cells.forEach( item => {
+                if (item.classList.contains('checked')){
+                    item.classList.remove('checked')
+                }
+            });
+        });
     }
     const renderingTable = () => {
         const cols = tableValue.length;
@@ -417,6 +424,7 @@ let modalCloseButton;
         clickRestarted();
         clickSize();
         clickParent();
+        resetTable();
 
     }
 
